@@ -178,12 +178,27 @@ function App() {
         onChangeText={setPassword}
       />
       {error !== '' && <Text style={styles.errorText}>{error}</Text>}
+  
+      {/* Submit Button */}
       <TouchableOpacity style={styles.customButton} onPress={submitHandler}>
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
+  
+      {/* Back Button */}
+      <TouchableOpacity style={styles.backButton} onPress={() => setView('enter')}>
+        <Text style={styles.backButtonText}>Back</Text>
+      </TouchableOpacity>
     </View>
   );
+  
 
+
+
+
+
+
+
+  
 
 const renderCategories = () => (
     <View style={styles.center}>
@@ -218,7 +233,9 @@ const renderCategories = () => (
             <View style={styles.jokeContainer}>
               <Text style={styles.jokeText}>{item}</Text>
               <TouchableOpacity onPress={() => addToFavorites(item)}>
-                <Text style={styles.favoriteText}>❤️</Text>
+                <Text style={styles.favoriteText}>
+                  {favorites.includes(item) ? '❤️' : '🤍'}
+                </Text>
               </TouchableOpacity>
             </View>
           )}
@@ -230,6 +247,9 @@ const renderCategories = () => (
       </View>
     );
   };
+  
+
+
   const updateUserPassword = async (newPassword) => {
     try {
       await db.runAsync('UPDATE users SET password = ? WHERE id = ?', [newPassword, currentUser.id]);
